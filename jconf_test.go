@@ -54,19 +54,19 @@ func TestConfig_Load(t *testing.T) {
 func TestConfig_Get(t *testing.T) {
 	conf, _ := NewConfig(configFile)
 
-	if res, err := conf.Get("name"); err != nil || res != "Name" {
-		t.Error("Name Error", err)
+	if res := conf.Get("name"); res.String() != "Name" || res.Int() != 0 || !res.Bool() || res.Float() != 0. {
+		t.Error("Name Error")
 	}
 
-	if res, err := conf.Get("data"); err != nil || res != "test" {
-		t.Error("Data Error", err)
+	if res := conf.Get("data").String(); res != "test" {
+		t.Error("Data Error")
 	}
 
-	if res, err := conf.Get("number"); err != nil || res != 10. {
-		t.Error("number error", err)
+	if res := conf.Get("number"); res.Float() != 10. || res.Int() != 10 || !res.Bool() || res.String() != "10" {
+		t.Error("number error")
 	}
 
-	if res, err := conf.Get("bool"); err != nil || res != false {
-		t.Error("bool error", err)
+	if res := conf.Get("bool"); res.Bool() != false || res.String() != "false" || res.Int() != 0 || res.Float() != 0. {
+		t.Error("bool error")
 	}
 }
